@@ -7,5 +7,6 @@ require('./config/mnogoose')();
 require('./config/express')(app);
 
 require('./routes/note.routes')(app);
+require('./routes/auth.routes')(app);
 
 app.listen(PORT, console.log(`Server is listeing on ${PORT}...`));

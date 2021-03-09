@@ -10,7 +10,7 @@ export const Note = (props) => {
 
     const removeNote = () => {
         axios.delete(`http://localhost:3000/notes/${props._id}`);
-        history.push('/');
+        history.go('/');
     }
 
     return (

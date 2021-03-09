@@ -14,7 +14,7 @@ export const AddNote = () => {
 
         axios.post('http://localhost:3000/notes', { title, content });
 
-        history.push('/');
+        history.go('/');
     }
 
     const onTitleChange = (e) => {
@@ -24,7 +24,6 @@ export const AddNote = () => {
     const onContentChange = (e) => {
         setContent(e.target.value);
     }
-
 
     return (
         <div className="py-2">

@@ -22,7 +22,7 @@ export const EditNote = () => {
             .then(res => {
                 setTitle(res.data.title);
                 setContent(res.data.content);
-            })
+            });
     }, []);
 
     const onTitleChange = (e) => {
@@ -41,9 +41,9 @@ export const EditNote = () => {
                 </FormGroup>
                 <FormGroup>
                     <Label>Content</Label>
-                    <Input type="text" value={content} onChange={onContentChange} name="content" placeholder="Content" required></Input>
+                    <Input type="textarea" rows="4" value={content} onChange={onContentChange} name="content" placeholder="Content" required></Input>
                 </FormGroup>
-                <Button type="submit">Add to the list</Button>
+                <Button type="submit">Edit</Button>
                 <Link to="/" className="btn btn-danger ml-2">Cancel</Link>
             </Form>
         </div>
