@@ -30,7 +30,10 @@ exports.Login = async (req, res) => {
 
   return res.header("auth-token", token).status(200).send({
     token,
-    user,
+    User: {
+      Email: user.Email,
+      Username: user.Username
+    },
   });
 };
 
@@ -49,26 +52,26 @@ exports.Register = async (req, res) => {
       res.send(data);
     })
     .catch((err) => {
-      res.status(500).send({
+      return res.status(500).send({
         message: "Some error occurred while trying to register.",
         err,
       });
     });
 };
 
-exports.Profile = async (req, res) => {
-  User.findOne({ Username: req.user.username })
+exports.Profile = (req, res) => {
+  User.findById(req.user?._id)
     .then((user) => {
       if (!user) {
-        req.status(404).send({
-          message: `User not found with ${req.user._id}`,
+        return req.status(404).send({
+          message: `User not found!`,
         });
       }
       res.send(user);
     })
     .catch((err) => {
       return res.status(500).send({
-        message: "Error retrieving user with id " + req.user._id,
+        message: "Error retrieving user!",
         err,
       });
     });
