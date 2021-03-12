@@ -1,20 +1,28 @@
-const jwt = require('jsonwebtoken');
-const colors = require('colors');
-const { COOKIE_NAME, SECRET } = require('../config');
+const jwt = require("jsonwebtoken");
+const colors = require("colors");
+const { COOKIE_NAME, SECRET } = require("../config");
 
-module.exports = function() {
-    return (req, res, next) => {
-        let token = req.headers.authorization?.replace('Bearer ', '');
-        
-        // console.log('Token: ', token ? colors.zebra( token ) : null );
+module.exports = function () {
+  return (req, res, next) => {
+    let token = req.headers.authorization?.replace("Bearer ", "");
 
-        if (token) {
-            let verifiedUser = jwt.verify(token, SECRET);
-            // console.log('User: ', verifiedUser);
+    // console.log('Token: ', token ? colors.zebra( token ) : null );
 
-            res.user = verifiedUser;
+    if (token) {
+      jwt.verify(token, SECRET, (err, decoded) => {
+        if (err) {
+          return res.status(401).send({
+            message: err.message,
+            expiredAt: err.expiredAt,
+          });
         }
+        // console.log("User: ", decoded);
 
+        req.user = decoded;
+        next();
+      });
+    } else {
         next();
     }
-}
+  };
+};
