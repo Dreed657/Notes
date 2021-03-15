@@ -6,6 +6,10 @@ module.exports = function () {
   return (req, res, next) => {
     let token = req.headers.authorization?.replace("Bearer ", "");
 
+    if (!token) {
+      token = req.cookies['auth-cookie'];
+    }
+
     // console.log('Token: ', token ? colors.zebra( token ) : null );
 
     if (token) {

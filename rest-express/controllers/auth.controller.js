@@ -30,6 +30,8 @@ exports.Login = async (req, res) => {
     }
   );
 
+  res.cookie('auth-cookie', token);
+
   return res.status(200)
     .send({
       token,
