@@ -22,8 +22,12 @@ exports.create = async (req, res) => {
         })
 };
 
+
 exports.findAll = async (req, res) => {
+    let limit = req.query.limit > 0 ? +req.query.limit : 0;
+
     Note.find()
+        .limit(limit)
         .then(notes => {
             res.send({
                 Count: notes.length,
