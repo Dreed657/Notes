@@ -13,5 +13,5 @@ module.exports = (app) => {
   app.use(cookieParser());
 
   app.use(logger);
-  app.use(auth());
+  // app.use(auth());
 };

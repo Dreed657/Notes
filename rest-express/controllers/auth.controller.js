@@ -1,7 +1,30 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { COOKIE_NAME, SECRET } = require("../config");
+const { SECRET } = require("../config");
+
+exports.Verify = async (req, res) => {
+  const token = req.headers.authorization?.replace("Bearer ", "");
+
+  if (token) {
+    jwt.verify(token, SECRET, (err, decoded) => {
+      if (err) {
+        return res.status(401).send({
+          status: false,
+          message: err.message,
+          expiredAt: err.expiredAt,
+        });
+      }
+
+      return res.send({
+        status: true,
+        user: decoded
+      })
+    });
+  } else {
+    return res.status(401).send({ error: 'UNAUTHORIZED!' });
+  }
+};
 
 exports.Login = async (req, res) => {
   const { username, password } = req.body;
@@ -26,11 +49,9 @@ exports.Login = async (req, res) => {
       username: user.Username,
     }, SECRET,
     {
-      expiresIn: 1 * 60
+      expiresIn: 1 *  7 * 24 * 60
     }
   );
-
-  res.cookie('auth-cookie', token);
 
   return res.status(200)
     .send({

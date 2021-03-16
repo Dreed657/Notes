@@ -1,35 +1,31 @@
 const getNavigation = () => {
-  const authLinks = [
-    {
-      title: "Home",
-      link: "/",
-    },
-    {
-      title: "Create",
-      link: "/create",
-    },
-    {
-      title: "Profile",
-      link: `/profile/123123`,
-    }
-  ];
+    const authLinks = [
+        {
+            title: 'Home',
+            link: '/',
+        },
+        {
+            title: 'Create',
+            link: '/create',
+        },
+        {
+            title: 'Profile',
+            link: `/profile/123123`,
+        },
+    ]
 
-  // const guestLinks = [
-  //   {
-  //     title: "Publications",
-  //     link: "/",
-  //   },
-  //   {
-  //     title: "Register",
-  //     link: "/register",
-  //   },
-  //   {
-  //     title: "Login",
-  //     link: "/login",
-  //   },
-  // ];
+    const guestLinks = [
+        {
+            title: 'Login',
+            link: '/login',
+        },
+        {
+            title: 'Register',
+            link: '/register',
+        },
+    ]
 
-  return authLinks;
-};
+    return guestLinks
+}
 
-export default getNavigation;
+export default getNavigation

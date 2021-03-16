@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const colors = require("colors");
-const { COOKIE_NAME, SECRET } = require("../config");
+const { SECRET } = require("../config");
 
 module.exports = function () {
   return (req, res, next) => {
