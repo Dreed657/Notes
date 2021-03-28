@@ -49,14 +49,14 @@ exports.Login = async (req, res) => {
       username: user.Username,
     }, SECRET,
     {
-      expiresIn: 1 *  7 * 24 * 60
+      expiresIn: 30
     }
   );
 
   return res.status(200)
     .send({
       token,
-      User: {
+      user: {
         Email: user.Email,
         Username: user.Username,
       },
@@ -75,7 +75,7 @@ exports.Register = async (req, res) => {
   user
     .save()
     .then((data) => {
-      res.send(data);
+      return res.send(data);
     })
     .catch((err) => {
       return res.status(500).send({
@@ -93,7 +93,7 @@ exports.Profile = (req, res) => {
           message: `User not found!`,
         });
       }
-      res.send({ User: {
+      return res.send({ User: {
         Id: user._id,
         Username: user.Username
       }});

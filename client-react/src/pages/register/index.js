@@ -1,31 +1,29 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'reactstrap';
-import axios from 'axios';
+import { register } from '../../utils/authService';
 
 import PageLayout from '../../components/page-layout';
 import Input from '../../components/input';
+import { useHistory } from 'react-router';
 
 const RegisterPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
 
+    const history = useHistory();
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios
-            .post('http://localhost:9999/auth/register', {
-                email,
-                username,
-                password,
-            })
+
+        register(username, email, password)
             .then((res) => {
-                console.log(res);
+                console.log('Res: ', res);
+                history.push('/');
             })
             .catch((err) => {
                 console.error(err);
             });
-
-        console.log('Data: ', { username, password, email });
     };
 
     return (

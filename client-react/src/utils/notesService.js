@@ -1,4 +1,12 @@
 import axios from "axios";
+import { getToken } from './authService';
+
+axios.interceptors.request.use(req => {
+  let token = getToken();
+  req.headers.Authorization = token;
+
+  return req;
+});
 
 const getNotes = (limit) => {
   return axios.get("http://localhost:9999/notes");

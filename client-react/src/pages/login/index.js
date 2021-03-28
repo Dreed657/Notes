@@ -1,26 +1,23 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Form, Button } from 'reactstrap';
-import { useHistory } from "react-router-dom";
-import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { login } from '../../utils/authService';
 
 import PageLayout from '../../components/page-layout';
 import Input from '../../components/input';
-import UserContext from '../../coxtext';
+// import UserContext from '../../coxtext';
 
 const LoginPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const context = useContext(UserContext);
     const history = useHistory();
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios
-            .post('http://localhost:9999/auth/login', { username, password })
+        login(username, password)
             .then((res) => {
-                context.logIn(res.data)
                 history.push('/');
             })
             .catch((err) => {

@@ -26,6 +26,7 @@ module.exports = function () {
         next();
       });
     } else {
+        console.log("401: unauthorized");
         next();
     }
   };

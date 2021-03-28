@@ -1,56 +1,66 @@
-import React from "react";
-import getNavigation from "../../utils/navigation";
-import { NavbarBrand } from "reactstrap";
-import Link from "../link";
+import React from 'react';
+import getNavigation from '../../utils/navigation';
+import { NavbarBrand } from 'reactstrap';
+import Link from '../link';
+import { getCurrentUser, logout } from '../../utils/authService';
 
 const HeaderComponent = () => {
-  const links = getNavigation();
+    const user = getCurrentUser();
+    const links = getNavigation(user);
 
-  return (
-    <header>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <NavbarBrand href="/">Notes</NavbarBrand>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mr-auto">
-            {links.map((navElement) => {
-              return (
-                <Link
-                  key={navElement.title}
-                  href={navElement.link}
-                  title={navElement.title}
-                />
-              );
-            })}
-          </ul>
-          <form className="form-inline my-2 my-lg-0">
-            <input
-              className="form-control mr-sm-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button
-              className="btn btn-outline-success my-2 my-sm-0"
-              type="submit"
-            >
-              Search
-            </button>
-          </form>
-        </div>
-      </nav>
-    </header>
-  );
+    return (
+        <header>
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                <NavbarBrand href="/">Notes</NavbarBrand>
+                <button
+                    className="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div
+                    className="collapse navbar-collapse"
+                    id="navbarSupportedContent"
+                >
+                    <ul className="navbar-nav mr-auto">
+                        {links.map((navElement) => {
+                            return (
+                                <Link
+                                    key={navElement.title}
+                                    href={navElement.link}
+                                    title={navElement.title}
+                                />
+                            );
+                        })}
+                        {!!user ? (
+                            <Link onClick={logout} title="Logout!"></Link>
+                        ) : (
+                            <></>
+                        )}
+                    </ul>
+                    <form className="form-inline my-2 my-lg-0">
+                        <input
+                            className="form-control mr-sm-2"
+                            type="search"
+                            placeholder="Search"
+                            aria-label="Search"
+                        />
+                        <button
+                            className="btn btn-outline-success my-2 my-sm-0"
+                            type="submit"
+                        >
+                            Search
+                        </button>
+                    </form>
+                </div>
+            </nav>
+        </header>
+    );
 };
 
 export default HeaderComponent;
